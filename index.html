@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Mechanical engineering portfolio">
+    <title>Mechanical Engineering Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="content.js" defer></script>
+    <script src="portfolio.js" defer></script>
+  </head>
+  <body>
+    <div class="site-background" id="site-background" aria-hidden="true" hidden></div>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header shell" id="top">
+      <div class="profile-bar">
+        <a class="site-brand" id="site-brand" href="#top" aria-label="Portfolio home" hidden>
+          <img alt="" width="24" height="24">
+        </a>
+        <nav aria-label="External profiles">
+          <ul id="profile-links"></ul>
+        </nav>
+      </div>
+      <nav class="section-bar" aria-label="Portfolio sections">
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#resume">Résumé</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="shell" id="main" tabindex="-1">
+      <div class="intro">
+        <div>
+          <h1 id="name">Your name</h1>
+          <p id="role">Mechanical Engineering</p>
+        </div>
+        <img class="intro-photo" id="intro-photo" alt="" hidden>
+      </div>
+
+      <section class="section" id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+        <div class="project-grid" id="project-grid"></div>
+      </section>
+
+      <section class="section info-section" id="about" aria-labelledby="about-heading">
+        <h2 id="about-heading">About</h2>
+        <p id="bio">Short bio</p>
+      </section>
+
+      <section class="section info-section" id="resume" aria-labelledby="resume-heading">
+        <h2 id="resume-heading">Résumé</h2>
+        <div id="resume-content"><span>Résumé PDF</span></div>
+      </section>
+    </main>
+
+    <template id="project-card">
+      <article class="project-card">
+        <div class="image-frame project-cover"></div>
+        <div class="project-summary">
+          <h3 class="project-title"></h3>
+          <p class="project-description"></p>
+        </div>
+      </article>
+    </template>
+
+    <dialog id="project-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-header">
+        <h2 id="dialog-title"></h2>
+        <form method="dialog">
+          <button class="dialog-close" type="submit" autofocus>Close</button>
+        </form>
+      </div>
+      <div class="dialog-content">
+        <p id="dialog-description"></p>
+        <div class="project-gallery" id="dialog-gallery"></div>
+      </div>
+    </dialog>
+  </body>
+</html>
