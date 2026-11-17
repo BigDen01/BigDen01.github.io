@@ -33,12 +33,12 @@ const portfolio = {
       ],
     },
         {
-      title: 'ME 2110(Creative Decisions) Robotics',
+      title: 'ME 2110 (Creative Decisions) Robotics',
       description: 'Semesterly Robotics Competition',
       details: '',
       images: [
         // The first image also appears on the project card.
-        // { src: 'assets/project-photo.jpg', alt: 'Describe what the photo shows' },
+        // { src: 'assets\ME2110\CAD2.png', alt: 'Describe what the photo shows' },
       ],
     },
             {
