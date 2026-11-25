@@ -281,18 +281,44 @@ body:has(dialog[open]) { overflow: hidden; }
   border-bottom: 1px solid var(--line);
 }
 
+.dialog-header form { flex-shrink: 0; }
 .dialog-close {
-  padding: .25rem .625rem;
-  border: 1px solid var(--line);
-  color: var(--accent);
-  background: var(--background);
+  position: relative;
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: .25rem;
+  color: var(--muted);
+  background: transparent;
   cursor: pointer;
 }
-
-.dialog-close:hover { border-color: var(--accent); }
+.dialog-close::before, .dialog-close::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.125rem;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  pointer-events: none;
+}
+.dialog-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.dialog-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.dialog-close:hover { color: var(--accent); background: var(--background); }
 .dialog-content:has(> :not([hidden])) { display: grid; gap: 1.25rem; }
 .dialog-content:not(:has(> :not([hidden]))) { display: none; }
 #dialog-description { color: var(--muted); white-space: pre-line; }
+.project-files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.project-files:not([hidden]) { display: grid; gap: .625rem; }
+.project-files a { color: var(--accent); overflow-wrap: anywhere; }
+.project-files a::after { content: ' ↗' / ''; }
 .project-gallery:not([hidden]) { display: grid; gap: 1rem; }
 .gallery-photo { margin: 0; border: 1px solid var(--line); }
 .gallery-image { min-height: 8rem; }

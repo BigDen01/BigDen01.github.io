@@ -13,3 +13,15 @@
 - Open `index.html` locally to preview edits. Change your bio, profile links, résumé, background, headshot, and project entries in `content.js`. Change the accent color in `styles.css`.
 - Put new photos, videos, and PDFs in `assets/`. In `content.js`, use paths like `assets/rocket.jpg` with forward slashes and the same capitalization as the filenames. Add an optional `caption` to a project image to show text below it in the gallery.
 - Upload or push the edited files and any new assets to the publishing branch. GitHub Pages deploys updates from that branch.
+
+## Attach files to a project
+
+Put your PDF or other document in `assets`, then add an entry to that project's `files` list in `content.js`. For example, copy your research report to `assets/ECTC/report.pdf` and use the following entry inside the undergraduate research project.
+
+```js
+files: [
+  { src: 'assets/ECTC/report.pdf', label: 'Read our research report (PDF)' },
+],
+```
+
+Each link appears below the project description and opens in a new tab. Add more entries for more files. You can also use an existing document's full HTTPS URL as `src`. Leave `files: []` empty to hide file links. Save and refresh the preview, then commit and push the changed files and new documents to publish them.

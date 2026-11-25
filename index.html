@@ -70,11 +70,12 @@
       <div class="dialog-header">
         <h2 id="dialog-title"></h2>
         <form method="dialog">
-          <button class="dialog-close" type="submit" autofocus>Close</button>
+          <button class="dialog-close" type="submit" aria-label="Close project" title="Close project" autofocus></button>
         </form>
       </div>
       <div class="dialog-content">
         <p id="dialog-description"></p>
+        <ul class="project-files" id="project-files" aria-label="Project files" hidden></ul>
         <div class="project-gallery" id="dialog-gallery"></div>
       </div>
     </dialog>

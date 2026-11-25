@@ -57,6 +57,7 @@ const dialog = document.querySelector('#project-dialog');
 const dialogTitle = document.querySelector('#dialog-title');
 const dialogDescription = document.querySelector('#dialog-description');
 const dialogGallery = document.querySelector('#dialog-gallery');
+const projectFiles = document.querySelector('#project-files');
 const autoplayObserver = new IntersectionObserver((entries, observer) => {
   for (const { intersectionRatio, target: video } of entries) {
     if (intersectionRatio >= 0.5 && dialog.open && video.isConnected) {
@@ -109,6 +110,20 @@ function openProject(project, button) {
   dialogTitle.textContent = button.textContent;
   dialogDescription.textContent = [project.description, project.details].filter(Boolean).join('\n\n');
   dialogDescription.hidden = !dialogDescription.textContent;
+
+  projectFiles.replaceChildren();
+  for (const { src, label } of project.files ?? []) {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = src;
+    link.textContent = label;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', `${label} (opens in a new tab)`);
+    item.append(link);
+    projectFiles.append(item);
+  }
+  projectFiles.hidden = !projectFiles.childElementCount;
 
   dialogGallery.replaceChildren();
   for (const image of project.images) {
@@ -163,6 +178,21 @@ function openProject(project, button) {
     });
   }
 }
+
+function isOutsideProject(event) {
+  const bounds = dialog.getBoundingClientRect();
+  return event.clientX < bounds.left || event.clientX > bounds.right ||
+    event.clientY < bounds.top || event.clientY > bounds.bottom;
+}
+
+let pointerStartedOutside = false;
+dialog.addEventListener('pointerdown', (event) => {
+  pointerStartedOutside = isOutsideProject(event);
+});
+dialog.addEventListener('click', (event) => {
+  if (pointerStartedOutside && isOutsideProject(event)) dialog.close();
+  pointerStartedOutside = false;
+});
 
 dialog.addEventListener('close', () => {
   autoplayObserver.disconnect();
