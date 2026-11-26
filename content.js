@@ -1,19 +1,22 @@
-// Put photos, videos, and your résumé PDF in assets. Paths start at index.html.
+ // Put photos, videos, and your résumé PDF in assets. Paths start at index.html.
 const portfolio = {
   name: 'Dennis Gao',
-  role: 'Mechanical Engineering Portfolio',
+  role: 'Georgia Tech mechanical engineering student',
   bio: `- As a Georgia Tech student, I aspire to innovate and explore new opportunities.
 - Make a contribution to an ever-evolving world.
 - Communicate with intent.`,
-  resume: '', // Example: 'assets/resume.pdf'
+  resume: 'assets/resume11.25.26.pdf', // Example: 'assets/resume.pdf'
+  contactFormEndpoint: 'https://formspree.io/f/mqpqjgqr', // Paste the HTTPS form endpoint here.
   backgroundImage: 'assets/giphy.gif',
   backgroundTileWidth: 0, // Single image. Use 1500 to repeat it again.
   siteIcon: '', // Example: 'assets/icon.png'
+  // Set src to an empty string to hide the photo beside your name.
+  heroPhoto: { src: 'assets/PB050002.JPG', alt: '' },
   introPhoto: { src: '', alt: 'Headshot of Dennis Gao' }, // Example: src: 'assets/headshot.jpg'
 
   links: [
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/gaodennis/' },
-    { label: 'GitHub', url: 'https://github.com/BigDen01' },
+    //{ label: 'GitHub', url: 'https://github.com/BigDen01' },
     // Add more links here: { label: 'Personal site', url: 'https://example.com' },
   ],
 
@@ -32,33 +35,33 @@ const portfolio = {
                  and the parachute was still intact, which allowed me to pass my L1 certification.
                  
                  Through this project, I learned many things:
-                 - 
-                 - 
-                 - 
-                 - `,
+                 - Use OpenRocket to evaluate predicted altitude, speed, and stability as part of the design process.
+                 - Record which configuration produced each simulation so the results stay tied to the design I evaluated.
+                 - Revisit my preflight assumptions when a component changes close to launch.
+                 `,
       files: [],
       images: [
         // The first image also appears on the project card.
-        { src: 'assets/L1rocket/lotus.jpeg', alt: 'L1 rocket certification project' },
-        { src: 'assets/L1rocket/finAssembly.jpeg', alt: 'Completed fixture on the assembly bench', caption: 'Rocket fin assembly' },
-        { src: 'assets/L1rocket/IMG_4132.jpg', alt: 'Group photo' },
+        { src: 'assets/L1rocket/lotus.jpeg', thumbnail: 'assets/portfolio/lotus-cover.webp', alt: 'L1 rocket certification project', caption: 'Pre-flight photo' },
+        { src: 'assets/L1rocket/finAssembly.jpeg', alt: 'Completed fixture on the assembly bench', caption: 'Rocket fin Assembly' },
+        { src: 'assets/L1rocket/IMG_4132.jpg', alt: 'Group photo', caption: 'Group Photo' },
       ],
       videos: [
-        { src: 'assets/L1rocket/rocketvid.mp4', label: 'Video of rocket flying', autoplay: true },
+        { src: 'assets/L1rocket/rocketvid.mp4', label: 'Video of rocket flying', caption: 'First rocket launch', autoplay: true },
       ],
     },
   //------------------------------------------------------------------------------------
   //------------------------------------------------------------------------------------
         {
       title: 'ME 2110 (Creative Decisions) Robotics',
-      description: 'Semesterly Robotics Competition',
+      description: 'Fall 2026 Robotics Competition',
       details: `ME2110 is a design and build course in which all students in the School of Mechanical Engineering at Georgia Tech participate. \
-                This year's theme was Pirate's of the Carribean, and our robot had to navigate an dynamic arena, topple mermaid statues, retrieve Davy Jones' heart \
-                ,retrieve and organize coins and jewels, and raise our pirate flag as high as possible. 
+                This year's theme was Pirate's of the Carribean, and our robot had to navigate an dynamic arena, topple mermaid statues, retrieve Davy Jones' heart\
+                , retrieve and organize coins and jewels, and raise our pirate flag as high as possible. 
 
                  After weeks of preparation, we received mixed results during competition day. We worked on trying to make every single subsystem to\
                  work up to the competition, but reliability was key to getting the best results. We were able to get into the round of 32 out of 82 teams, \
-                 and we scored top 20 out of all teams during the first two rounds, but ____.
+                 and we scored top 20 out of all teams during the first two rounds.
                  
                  However, our team still earned invaluable skills that will be utilized in our future endeavors, including:
                  - Engineering Documentation
@@ -68,26 +71,36 @@ const portfolio = {
       files: [],
       images: [
         // The first image also appears on the project card.
-        { src: 'assets/ME2110/CAD2.png', alt: 'Describe what the photo shows' },
-        { src: 'assets/ME2110/IMG_4148.jpeg', alt: 'Describe what the photo shows' },
+        { src: 'assets/ME2110/CAD2.png', thumbnail: 'assets/portfolio/me2110-cover.webp', alt: 'Full assembly 1', caption: 'Unactivated Assembly' },
+        { src: 'assets/ME2110/CAD1.png', alt: 'Full Assembly 2' , caption: 'CAD representation of activated robot'},
+        { src: 'assets/ME2110/IMG_4148.jpeg', alt: 'Actual robot', caption: 'Final robot before competition' },
         
       ],
       videos: [
-        { src: 'assets/ME2110/IMG_0849.MOV', label: 'Competition', autoplay: true },
+        { src: 'assets/ME2110/IMG_0849.MOV', label: 'Competition', caption: 'Best round during competition', autoplay: true },
       ],
     },
 //------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
             {
       title: '1st Place ECTC Undergraduate Research',
-      description: 'AI chip cooling',
-      details: '',
+      description: 'Thermal Packaging Researching of large scale AI cooling',
+      details: `I am extremely proud to share that our Georgia Tech team secured first place in the Student Competition BS/MS track at IEEE ECTC!
+      
+      Our research focused on advancing the thermo-mechanical reliability of next-generation AI and data center processors.\
+       Specifically, we addressed the critical bottlenecks of extreme localized heat generation and the subsequent structural warpage\
+        caused by mismatched material expansion in high-power chips.
+      
+       Finally, a massive thank you to my teammates, Dennis Gao and Kelvin Cheung. \
+       This milestone is a direct result of our dedication and countless horus of rigorous research we poured into this project.
+       
+       Here is our following paper:`,
       files: [
         { src: 'assets/ECTC/ECTC 2026 Final.pdf', label: 'ECTC 2026 Final (PDF)' },
       ],
       images: [
         // The first image also appears on the project card.
-        // { src: 'assets/project-photo.jpg', alt: 'Describe what the photo shows' },
+        { src: 'assets/ECTC/ectc_logo.jpeg', thumbnail: 'assets/portfolio/ectc-cover.webp', alt: 'Describe what the photo shows' },
       ],
     },
 
@@ -95,6 +108,7 @@ const portfolio = {
 //------------------------------------------------------------------------------------
             {
       title: 'L2 Rocket Certification',
+      status: 'In progress',
       description: 'Currently Underway!',
       details: '',
       files: [

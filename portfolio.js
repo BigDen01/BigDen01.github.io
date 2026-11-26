@@ -20,14 +20,49 @@ if (portfolio.backgroundImage) {
     background.style.backgroundSize = `${portfolio.backgroundTileWidth}px auto`;
   }
   background.hidden = false;
+  if (/\.gif(?:[?#]|$)/i.test(portfolio.backgroundImage)) {
+    background.hidden = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
 }
 
 const siteBrand = document.querySelector('#site-brand');
 showOptionalImage(siteBrand.querySelector('img'), portfolio.siteIcon, siteBrand);
 
+const heroPhoto = document.querySelector('#hero-photo');
+heroPhoto.alt = portfolio.heroPhoto?.alt ?? '';
+showOptionalImage(heroPhoto, portfolio.heroPhoto?.src);
+
 const introPhoto = document.querySelector('#intro-photo');
 introPhoto.alt = portfolio.introPhoto?.alt ?? '';
 showOptionalImage(introPhoto, portfolio.introPhoto?.src);
+
+const sectionBar = document.querySelector('.section-bar');
+const sectionLinks = [...sectionBar.querySelectorAll('a[href^="#"]')];
+const sections = sectionLinks.map(link => document.querySelector(link.hash));
+
+function markCurrentSection(index) {
+  sectionLinks.forEach((link, position) => {
+    if (position === index) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+}
+
+function updateCurrentSection() {
+  const readingLine = sectionBar.getBoundingClientRect().bottom + 56;
+  const current = sections.findLastIndex(section => section.getBoundingClientRect().top <= readingLine);
+  const atBottom = Math.ceil(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight;
+  markCurrentSection(atBottom ? sections.length - 1 : current);
+}
+
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--section-bar-height', sectionBar.offsetHeight + 'px');
+  updateCurrentSection();
+}).observe(sectionBar);
+window.addEventListener('scroll', updateCurrentSection, { passive: true });
+window.addEventListener('hashchange', () => {
+  const index = sectionLinks.findIndex(link => link.hash === location.hash);
+  if (index >= 0) markCurrentSection(index);
+});
 
 const profileLinks = document.querySelector('#profile-links');
 for (const { label, url } of portfolio.links) {
@@ -42,6 +77,19 @@ for (const { label, url } of portfolio.links) {
   item.append(entry);
   profileLinks.append(item);
 }
+
+const contactForm = document.querySelector('#contact-form');
+const contactFormEndpoint = portfolio.contactFormEndpoint?.trim();
+if (contactFormEndpoint?.startsWith('https://')) {
+  contactForm.action = contactFormEndpoint;
+  const sendButton = contactForm.querySelector('button[type="submit"]');
+  sendButton.disabled = false;
+  sendButton.removeAttribute('aria-describedby');
+  document.querySelector('#contact-form-status').hidden = true;
+}
+contactForm.addEventListener('submit', (event) => {
+  if (!contactForm.hasAttribute('action')) event.preventDefault();
+});
 
 if (portfolio.resume) {
   const resume = document.createElement('a');
@@ -89,20 +137,45 @@ for (const project of portfolio.projects) {
 
   description.textContent = project.description || (projectTitle ? '' : 'Project description');
   description.hidden = !description.textContent;
-  const cover = project.images[0];
+  const cover = project.images?.[0];
   if (cover) {
-    addImage(card.querySelector('.project-cover'), cover);
+    addImage(card.querySelector('.project-cover'), cover, cover.thumbnail);
+  } else if (project.status) {
+    card.classList.add('project-card--compact');
+    card.querySelector('.project-cover').hidden = true;
+    const status = card.querySelector('.project-status');
+    status.textContent = project.status;
+    status.hidden = false;
+    description.hidden = true;
   }
 
   projectGrid.append(card);
 }
 
-function addImage(frame, { src, alt }) {
+function addImage(frame, { src, alt }, thumbnail) {
   const img = document.createElement('img');
   img.alt = alt;
-  img.addEventListener('error', () => { img.hidden = true; });
-  img.src = src;
+  img.decoding = 'async';
+  img.addEventListener('error', () => {
+    if (thumbnail && img.getAttribute('src') === thumbnail) img.src = src;
+    else img.hidden = true;
+  });
+  img.src = thumbnail || src;
   frame.append(img);
+}
+
+function appendGalleryFigure(media, text) {
+  const figure = document.createElement('figure');
+  figure.className = 'gallery-figure';
+  figure.append(media);
+
+  if (text?.trim()) {
+    const caption = document.createElement('figcaption');
+    caption.textContent = text;
+    figure.append(caption);
+  }
+
+  dialogGallery.append(figure);
 }
 
 function openProject(project, button) {
@@ -126,25 +199,14 @@ function openProject(project, button) {
   projectFiles.hidden = !projectFiles.childElementCount;
 
   dialogGallery.replaceChildren();
-  for (const image of project.images) {
-    const figure = document.createElement('figure');
-    figure.className = 'gallery-photo';
-
+  for (const image of project.images ?? []) {
     const frame = document.createElement('div');
     frame.className = 'image-frame gallery-image';
     addImage(frame, image);
-    figure.append(frame);
-
-    if (image.caption?.trim()) {
-      const caption = document.createElement('figcaption');
-      caption.textContent = image.caption;
-      figure.append(caption);
-    }
-
-    dialogGallery.append(figure);
+    appendGalleryFigure(frame, image.caption);
   }
   const autoplayVideos = [];
-  for (const { src, label, autoplay } of project.videos ?? []) {
+  for (const { src, label, caption, autoplay } of project.videos ?? []) {
     const video = document.createElement('video');
     video.className = 'gallery-video';
     video.controls = true;
@@ -161,7 +223,7 @@ function openProject(project, button) {
       video.replaceWith(notice);
     });
     video.src = src;
-    dialogGallery.append(video);
+    appendGalleryFigure(video, caption);
   }
   dialogGallery.hidden = !dialogGallery.childElementCount;
 

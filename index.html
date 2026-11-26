@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Mechanical engineering portfolio">
+    <meta name="description" content="Dennis Gao, Georgia Tech mechanical engineering student. Projects in robotics, rocketry, and thermal packaging research.">
     <title>Mechanical Engineering Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <script src="content.js" defer></script>
@@ -22,23 +22,26 @@
           <ul id="profile-links"></ul>
         </nav>
       </div>
-      <nav class="section-bar" aria-label="Portfolio sections">
-        <ul>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#resume">Résumé</a></li>
-        </ul>
-      </nav>
     </header>
 
+    <nav class="section-bar shell" aria-label="Portfolio sections">
+      <ul>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#resume">Résumé</a></li>
+        <li><a href="#contact">Contact Me</a></li>
+      </ul>
+    </nav>
+
     <main class="shell" id="main" tabindex="-1">
-      <div class="intro">
-        <div>
-          <h1 id="name">Your name</h1>
-          <p id="role">Mechanical Engineering</p>
+      <section class="intro" aria-labelledby="name">
+        <div class="intro-text">
+          <h1 id="name">Dennis Gao</h1>
+          <p id="role">Georgia Tech mechanical engineering student</p>
+          <p class="intro-description">My projects span robotics, rocketry, and thermal packaging research.</p>
         </div>
-        <img class="intro-photo" id="intro-photo" alt="" hidden>
-      </div>
+        <img class="hero-photo" id="hero-photo" alt="" fetchpriority="high" hidden>
+      </section>
 
       <section class="section" id="projects" aria-labelledby="projects-heading">
         <h2 id="projects-heading">Projects</h2>
@@ -47,12 +50,28 @@
 
       <section class="section info-section" id="about" aria-labelledby="about-heading">
         <h2 id="about-heading">About</h2>
-        <p id="bio">Short bio</p>
+        <div class="about-content">
+          <p id="bio">Short bio</p>
+          <img class="intro-photo" id="intro-photo" alt="" hidden>
+        </div>
       </section>
 
       <section class="section info-section" id="resume" aria-labelledby="resume-heading">
         <h2 id="resume-heading">Résumé</h2>
         <div id="resume-content"><span>Résumé PDF</span></div>
+      </section>
+      <section class="section info-section" id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact Me</h2>
+        <form class="contact-form" id="contact-form" method="post">
+          <label for="contact-name">Name</label>
+          <input id="contact-name" name="name" autocomplete="name" required>
+          <label for="contact-reply-email">Email</label>
+          <input id="contact-reply-email" type="email" name="email" autocomplete="email" required>
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="5" required></textarea>
+          <button type="submit" disabled aria-describedby="contact-form-status">Send message</button>
+          <p id="contact-form-status">Email form pending setup.</p>
+        </form>
       </section>
     </main>
 
@@ -62,6 +81,7 @@
         <div class="project-summary">
           <h3 class="project-title"></h3>
           <p class="project-description"></p>
+          <p class="project-status" hidden></p>
         </div>
       </article>
     </template>
